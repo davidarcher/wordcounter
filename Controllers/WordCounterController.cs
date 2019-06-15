@@ -37,11 +37,12 @@ namespace WordCounter.Controllers
 		{
 			DateTime submitDateTime = this.GetCurrentTime();
 			string text = new StreamReader(Request.Body).ReadToEnd();
+			WordCountSubmission submission = new WordCountSubmission(submitDateTime, text);
 
 			WordCounterController.data.AddOrUpdate(
 				key: submitDateTime,
-				addValue: new WordCountSubmission(submitDateTime, text),
-				updateValueFactory: (existingTime, existingSubmission) => { existingSubmission.AddWords(text); return existingSubmission; });
+				addValue: submission,
+				updateValueFactory: (existingTime, existingSubmission) => { existingSubmission.AddWords(submission.WordCounts); return existingSubmission; });
 
 			return Ok();
 		}
@@ -71,7 +72,7 @@ namespace WordCounter.Controllers
 				if (text == null) throw new ArgumentNullException(nameof(text));
 
 				// TODO: read this as a stream in case we're processing the entire library of congress in a single submission
-				foreach (string word in text.Split(new[] { ' ' }))
+				foreach (string word in text.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries))
 				{
 					this.AddWordCount(word, 1);
 				}
