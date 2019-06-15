@@ -13,6 +13,7 @@ GET statistics
 -- return consolidated map
 
 
-Test commands:
+To run and test:
+docker run -d -p 57138:80 darcher/wordcounter
 curl -X POST -d "the sky is blue" http://localhost:57138/submit
 curl http://localhost:57138/statistics

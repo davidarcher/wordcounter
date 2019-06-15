@@ -23,7 +23,7 @@ namespace WordCounter.Controllers
 
 			return
 				WordCounterController.data
-				.Where(entry => entry.Key > oneMinuteAgo)
+				.Where(entry => entry.Key > oneMinuteAgo) // TODO: Implement binary search and cleanup of old data
 				.SelectMany(entry => entry.Value.WordCounts)
 				.ToLookup(wordCount => wordCount.Key, wordCount => wordCount.Value)
 				.ToDictionary(groupOfWordCounts => groupOfWordCounts.Key, groupOfWordCounts => groupOfWordCounts.Sum());
