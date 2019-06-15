@@ -17,3 +17,9 @@ To run and test:
 docker run -d -p 57138:80 darcher/wordcounter
 curl -X POST -d "the sky is blue" http://localhost:57138/submit
 curl http://localhost:57138/statistics
+
+
+Future enhancements:
+- Don't iterate the entire dictionary to find last 60 seconds (implement binary search)
+- Clean up old submissions to keep memory usage under control
+
