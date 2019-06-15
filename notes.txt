@@ -1,0 +1,15 @@
+﻿
+POST submit
+-- parse the string into words
+  -- No requirements around stripping punctuation, normalizing case, etc.
+-- save to an ordered data structure keyed by timestamp (efficient retrieval of last 60 seconds)
+-- data to save is a map<string,int> of word to count
+
+GET statistics
+-- get all submissions in last 60 seconds
+-- merge the maps together
+-- return consolidated map
+
+
+Performance Optimizations:
+- Since filtering granularity is by second, we can pre-compute and group each second's submissions into a single map
